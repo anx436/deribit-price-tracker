@@ -4,8 +4,10 @@ from celery.schedules import crontab
 
 celery_app = Celery(
     "deribit_tasks",
-    broker=settings.REDIS_URL,
-    backend=settings.REDIS_URL,
+    # broker=settings.REDIS_URL,
+    # backend=settings.REDIS_URL,
+    broker=settings.RABBITMQ_URL,
+    backend="rpc://", 
 )
 
 celery_app.conf.update(
