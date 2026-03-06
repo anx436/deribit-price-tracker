@@ -4,21 +4,6 @@ from app.core.database import get_db
 from app.crud.price import PriceCRUD
 import pytest
 
-from app.models.price import Price  # This registers the Price table with Base
-
-
-@pytest.fixture
-def client(test_db):
-    """Override DB dependency with test DB"""
-    def override_get_db():
-        yield test_db
-    app.dependency_overrides[get_db] = override_get_db
-    
-    with TestClient(app) as c:
-        yield c
-    
-    app.dependency_overrides.clear()
-
 def test_get_latest_price(client, test_db):
     PriceCRUD().create(test_db, "BTC_USD", 98765.43, 1741284000)
     
@@ -47,7 +32,8 @@ def test_get_filtered_prices(client, test_db):
     assert response.status_code == 200
     assert len(response.json()) == 1
 
-@pytest.mark.usefixtures("test_db")   # Force table creastion
-def test_missing_ticker_returns_404(client):
+def test_missing_ticker_returns_404(client, test_db):
+    crud = PriceCRUD()
+    crud.create(test_db, "BTC_USD", 90000, 1741280000)
     response = client.get("/prices/latest?ticker=UNKNOWN")
     assert response.status_code == 404
