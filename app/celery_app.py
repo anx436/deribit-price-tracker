@@ -18,6 +18,8 @@ celery_app.conf.update(
     enable_utc=True,
 )
 
+celery_app.autodiscover_tasks(["app.tasks.prices"])
+
 # Every minute
 celery_app.conf.beat_schedule = {
     "fetch-prices-every-minute": {
