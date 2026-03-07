@@ -1,2 +1,16 @@
-results*
+# Testing
+.pytest_cache/
+.coverage
 app/tests/__pycache__/
+
+# Docker
+*.dockerenv
+.docker/
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Environment
+.env
+.venv/

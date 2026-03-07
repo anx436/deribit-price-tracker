@@ -6,7 +6,7 @@ from fastapi.testclient import TestClient
 
 from app.core.database import Base, get_db
 from app.main import app
-from app.models.price import Price  # ← ADD THIS: Register Price table with Base
+from app.models.price import Price
 
 os.environ["TESTING"] = "true"
 

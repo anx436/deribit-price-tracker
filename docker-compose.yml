@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres:16.13-alpine3.23
+    restart: always
+    environment:
+      POSTGRES_DB: deribit
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+    restart: always
+    depends_on:
+      - db
+    network_mode: host                  # ← this lets it talk to your local RabbitMQ
+    environment:
+      - DATABASE_URL=postgresql+psycopg://user:pass@127.0.0.1:5432/deribit
+      - RABBITMQ_URL=amqp://guest:guest@127.0.0.1:5672//
+    command: ./start.sh
+
+volumes:
+  postgres_data:
