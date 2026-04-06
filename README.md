@@ -31,12 +31,15 @@ celery -A app.celery_app worker --loglevel=info &
 celery -A app.celery_app beat --loglevel=info &
 ```
 
-## API Endpoints (all GET)All endpoints require the mandatory query parameter “ticker” (e.g. BTC_USD or ETH_USD).
+## API Endpoints
 
-Method     Endpoint                                      Description
-GET        /prices/all?ticker=BTC_USD                    Get all saved prices
-GET        /prices/latest?ticker=BTC_USD                 Get the latest price
-GET        /prices/filter?ticker=BTC_USD&start=...       Get prices with UNIX timestamp filter
+All endpoints require the mandatory query parameter “ticker” (e.g. BTC_USD or ETH_USD).
+
+| Method | Endpoint                                      | Description                                |
+|--------|-----------------------------------------------|--------------------------------------------|
+| GET    | /prices/all?ticker=BTC_USD                    | Get all saved prices                       |
+| GET    | /prices/latest?ticker=BTC_USD                 | Get the latest price                       |
+| GET    | /prices/filter?ticker=BTC_USD&start=...       | Get prices with UNIX timestamp filter      |
 
 ## Tech Stack
 

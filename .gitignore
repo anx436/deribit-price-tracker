@@ -1,7 +1,8 @@
 # Testing
 .pytest_cache/
 .coverage
-app/tests/__pycache__/
+__pycache__/
+*.py[cod]
 
 # Docker
 *.dockerenv
